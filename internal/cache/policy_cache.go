@@ -18,13 +18,13 @@ import (
 )
 
 type PolicyCache struct {
-	mu          sync.RWMutex
-	active      []domain.PolicyRecord
-	lastSynced  time.Time
+	mu         sync.RWMutex
+	active     []domain.PolicyRecord
+	lastSynced time.Time
 
-	repo   *storage.PolicyRepo
-	cedar  *cedarclient.Client
-	ttl    time.Duration
+	repo  *storage.PolicyRepo
+	cedar *cedarclient.Client
+	ttl   time.Duration
 }
 
 func New(repo *storage.PolicyRepo, cedar *cedarclient.Client, ttl time.Duration) *PolicyCache {

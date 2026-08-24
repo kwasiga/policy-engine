@@ -7,13 +7,13 @@ import (
 )
 
 type Config struct {
-	DatabaseURL        string
-	CedarAgentURL      string
-	CedarAgentToken    string
-	RESTListenAddr     string
-	GRPCListenAddr     string
-	PolicyCacheTTL     time.Duration
-	LogLevel           string
+	DatabaseURL     string
+	CedarAgentURL   string
+	CedarAgentToken string
+	RESTListenAddr  string
+	GRPCListenAddr  string
+	PolicyCacheTTL  time.Duration
+	LogLevel        string
 }
 
 func Load() Config {

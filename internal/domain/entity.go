@@ -14,7 +14,7 @@ func (u EntityUid) String() string {
 // Entity is a principal/resource/context entity with attributes and parent
 // entities (used for hierarchy and group-membership checks in policies).
 type Entity struct {
-	UID        EntityUid              `json:"uid"`
-	Attributes map[string]any         `json:"attrs,omitempty"`
-	Parents    []EntityUid            `json:"parents,omitempty"`
+	UID        EntityUid      `json:"uid"`
+	Attributes map[string]any `json:"attrs,omitempty"`
+	Parents    []EntityUid    `json:"parents,omitempty"`
 }

@@ -1,6 +1,8 @@
 // Package grpc hosts the gRPC surface (see proto/policy_engine.proto),
 // generated code lands in internal/api/grpc/pb via:
-//   protoc --go_out=. --go-grpc_out=. proto/policy_engine.proto
+//
+//	protoc --go_out=. --go-grpc_out=. proto/policy_engine.proto
+//
 // Not checked in yet — run scripts/gen_proto.sh once the proto stabilizes.
 package grpc
 

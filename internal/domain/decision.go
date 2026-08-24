@@ -27,9 +27,9 @@ const (
 // DecisionResult is returned from POST /evaluate and is what gets written
 // to the audit log verbatim.
 type DecisionResult struct {
-	Decision              Decision    `json:"decision"`
-	DeterminingPolicyIDs  []uuid.UUID `json:"determining_policy_ids"`
-	Errors                []string    `json:"errors,omitempty"`
-	EvaluatedAt           time.Time   `json:"evaluated_at"`
-	LatencyMicros         int64       `json:"latency_micros"`
+	Decision             Decision    `json:"decision"`
+	DeterminingPolicyIDs []uuid.UUID `json:"determining_policy_ids"`
+	Errors               []string    `json:"errors,omitempty"`
+	EvaluatedAt          time.Time   `json:"evaluated_at"`
+	LatencyMicros        int64       `json:"latency_micros"`
 }

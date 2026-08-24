@@ -11,17 +11,17 @@ import (
 )
 
 type authorizeRequest struct {
-	Principal string         `json:"principal"`
-	Action    string         `json:"action"`
-	Resource  string         `json:"resource"`
-	Context   map[string]any `json:"context"`
+	Principal string          `json:"principal"`
+	Action    string          `json:"action"`
+	Resource  string          `json:"resource"`
+	Context   map[string]any  `json:"context"`
 	Entities  []domain.Entity `json:"entities"`
 }
 
 type authorizeResponse struct {
-	Decision   string   `json:"decision"`   // "Allow" | "Deny"
-	Reasons    []string `json:"reasons"`    // matched policy IDs
-	Errors     []string `json:"errors"`
+	Decision string   `json:"decision"` // "Allow" | "Deny"
+	Reasons  []string `json:"reasons"`  // matched policy IDs
+	Errors   []string `json:"errors"`
 }
 
 // Authorize calls the sidecar's POST /v1/is_authorized endpoint. Determining

@@ -13,12 +13,12 @@ import (
 
 	"google.golang.org/grpc"
 
+	grpcapi "github.com/kwasi/policy-engine/internal/api/grpc"
+	restapi "github.com/kwasi/policy-engine/internal/api/rest"
 	"github.com/kwasi/policy-engine/internal/audit"
 	"github.com/kwasi/policy-engine/internal/cache"
 	"github.com/kwasi/policy-engine/internal/cedarclient"
 	"github.com/kwasi/policy-engine/internal/config"
-	grpcapi "github.com/kwasi/policy-engine/internal/api/grpc"
-	restapi "github.com/kwasi/policy-engine/internal/api/rest"
 	"github.com/kwasi/policy-engine/internal/storage"
 	"github.com/kwasi/policy-engine/internal/telemetry"
 )
