@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package policyengine.v1;
+
+option go_package = "github.com/kwasi/policy-engine/internal/api/grpc/pb";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+service PolicyEngine {
+  // Real-time evaluation, mirrors REST POST /evaluate.
+  rpc Evaluate(EvaluateRequest) returns (EvaluateResponse);
+
+  // Policy management, mirrors REST /policies CRUD + rollback.
+  rpc CreatePolicy(CreatePolicyRequest) returns (Policy);
+  rpc GetPolicy(GetPolicyRequest) returns (Policy);
+  rpc ListPolicies(ListPoliciesRequest) returns (ListPoliciesResponse);
+  rpc UpdatePolicy(UpdatePolicyRequest) returns (Policy);
+  rpc DeletePolicy(DeletePolicyRequest) returns (DeletePolicyResponse);
+  rpc RollbackPolicy(RollbackPolicyRequest) returns (Policy);
+}
+
+message EntityUid {
+  string type = 1;
+  string id = 2;
+}
+
+message Entity {
+  EntityUid uid = 1;
+  google.protobuf.Struct attributes = 2;
+  repeated EntityUid parents = 3;
+}
+
+message EvaluateRequest {
+  EntityUid principal = 1;
+  EntityUid action = 2;
+  EntityUid resource = 3;
+  google.protobuf.Struct context = 4;
+  repeated Entity entities = 5;
+}
+
+enum Decision {
+  DECISION_UNSPECIFIED = 0;
+  ALLOW = 1;
+  DENY = 2;
+}
+
+message EvaluateResponse {
+  Decision decision = 1;
+  repeated string determining_policy_ids = 2;
+  repeated string errors = 3;
+  google.protobuf.Timestamp evaluated_at = 4;
+  int64 latency_micros = 5;
+}
+
+enum PolicyStatus {
+  POLICY_STATUS_UNSPECIFIED = 0;
+  DRAFT = 1;
+  ACTIVE = 2;
+  DISABLED = 3;
+  ARCHIVED = 4;
+}
+
+message Policy {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  int32 version = 4;
+  string policy_text = 5;
+  PolicyStatus status = 6;
+  string created_by = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+message CreatePolicyRequest {
+  string name = 1;
+  string description = 2;
+  string policy_text = 3;
+  string created_by = 4;
+}
+
+message GetPolicyRequest { string id = 1; }
+
+message ListPoliciesRequest { PolicyStatus status_filter = 1; }
+message ListPoliciesResponse { repeated Policy policies = 1; }
+
+message UpdatePolicyRequest {
+  string id = 1;
+  string policy_text = 2;
+  string updated_by = 3;
+}
+
+message DeletePolicyRequest { string id = 1; }
+message DeletePolicyResponse { bool success = 1; }
+
+message RollbackPolicyRequest {
+  string id = 1;
+  int32 to_version = 2;
+}
